@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="5dp"
+        android:background="#ffffff"
+        android:padding="15dp">
+
+
+        <ImageView
+            android:id="@+id/iv_teaPicture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@string/desc"
+            />
+
+        <TextView
+            android:id="@+id/tv_teaStoreName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_toEndOf="@+id/iv_teaPicture"
+            android:layout_toRightOf="@+id/iv_teaPicture"
+            android:textColor="#333"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:text="TextView"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_teaStoreName"
+            android:layout_alignStart="@+id/tv_teaStoreName"
+            android:layout_centerVertical="true"
+            android:paddingTop="16dp"
+            android:text="TextView"
+            android:textColor="#333" />
+
+
+    </RelativeLayout>
+</LinearLayout>
+
+
