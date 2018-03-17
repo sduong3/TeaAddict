@@ -36,6 +36,18 @@ public class TeaStore implements Serializable {
         return rating;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     //Parse the jsonObject and extract data to be stored into its TeaStore properties
     public TeaStore(JSONObject jsonObject) {
         try {
@@ -44,13 +56,13 @@ public class TeaStore implements Serializable {
             this.rating = jsonObject.getString("rating");
 
             if(jsonObject.getJSONObject("location").getString("address1") != "") {
-                this.address = jsonObject.getJSONObject("location").getString("address1")
+                this.address = jsonObject.getJSONObject("location").getString("address1")/*
                         .concat(", ")
                         .concat(jsonObject.getJSONObject("location").getString("city"))
                         .concat(", ")
                         .concat(jsonObject.getJSONObject("location").getString("state"))
                         .concat(", ")
-                        .concat(jsonObject.getJSONObject("location").getString("zip_code"));
+                        .concat(jsonObject.getJSONObject("location").getString("zip_code"))*/;
             } else {
                 this.address = "";
             }
