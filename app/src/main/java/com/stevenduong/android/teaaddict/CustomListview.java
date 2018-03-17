@@ -35,7 +35,7 @@ public class CustomListview extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View r = convertView;
         ViewHolder viewHolder = null;
-        if(r == null) {
+        if (r == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();
             r = layoutInflater.inflate(R.layout.listview_layout, null, true);
             viewHolder = new ViewHolder(r);
@@ -54,15 +54,16 @@ public class CustomListview extends ArrayAdapter<String> {
     class ViewHolder {
         TextView tvw1;
         TextView tvw2;
+        TextView tvw3;
         ImageView ivw;
+
         ViewHolder(View v) {
             tvw1 = (TextView) v.findViewById(R.id.tv_teaStoreName);
-            tvw2 = (TextView) v.findViewById(R.id.tv_desc);
-            ivw = (ImageView) v.findViewById(R.id.imageView);
+            tvw2 = (TextView) v.findViewById(R.id.tv_address);
+            tvw3 = (TextView) v.findViewById(R.id.tv_rating);
+            ivw = (ImageView) v.findViewById(R.id.iv_teaPicture);
         }
-
-
-
     }
-}
 
+
+}

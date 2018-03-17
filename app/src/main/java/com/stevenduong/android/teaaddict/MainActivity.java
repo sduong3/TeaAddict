@@ -14,6 +14,8 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -24,7 +26,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-
+//Essentially YelpActivity
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextViewResult;
@@ -32,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private static String api_key = "Ube5uJt-BFN-i5P7-mK7cw4r6PB_ahla7ZsFGjW7fItvDQgNxLYuG2i5dJmjyFmveUIDNKHMlPU17o0YNUKE40l-W85AdhoefSXFHytxPVMzDOcNcPL_nGuQCzOoWnYx";
     private String term = "milk tea";
     private String location = "San Jose, CA"; //default location
-    private final String yelpUrl = "https://api.yelp.com/v3/businesses/search?term=" + term;
+    private final String yelpUrl = "https://api.yelp.com/v3/businesses/search";
+
+    ArrayList<TeaStore> teaStores = new ArrayList<>();
+    String result;
 /*
 
     ListView lst;
@@ -46,23 +51,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //                            DONT NEED ANYMORE FROM BELOW ***************************************************
         mTextViewResult = (TextView) findViewById(R.id.textViewResult);
         try {
-            run();
+            //run();                                  //create an object of yelpquery which is getTeaStores()
+            getTeaStores(location);
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //                            DONT NEED ANYMORE FROM ABOVE ***************************************************
       /*  lst = (ListView) findViewById(R.id.listview);
-        CustomListview customListview = new CustomListview(this, teaStoreName, desc, imgid);
+        CustomListview customListview = new CustomListview(this, teaStoreName, desc, imgid);  //constructor calls listview_layout
         lst.setAdapter(customListview);*/
     }
 
-    void run() throws IOException {
+    //                            DONT NEED ANYMORE FROM BELOW ***************************************************       Instead, just create a object of class YelpQuery
+/*    void run() throws IOException {
         //Create HTTP Connection
         OkHttpClient client = new OkHttpClient();
 
         //Adding Query Parameters and Request Headers
         HttpUrl.Builder urlBuilder = HttpUrl.parse(yelpUrl).newBuilder();
+        urlBuilder.addQueryParameter("term", term);
         urlBuilder.addQueryParameter("location", location);
         String url = urlBuilder.build().toString();
 
@@ -73,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Process the JSON Response Asynchronously
+        //Get a handler that can be used to post to the main thread
         client.newCall(request).enqueue(new Callback() {    //in background thread
             @Override
             public void onFailure(Call call, IOException e) {
@@ -82,7 +97,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
+
+                if(!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
                     final String myResponse = response.body().string();
 
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -110,8 +128,55 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+        });
+    }
+    //                            DONT NEED ANYMORE FROM ABOVE ***************************************************
+*/
+
+    private void getTeaStores(String location) throws IOException {
+
+        final YelpQuery yelpQuery = new YelpQuery();                //creates instance of the class that will be used to connect to yelp api
+
+        yelpQuery.findTeaStores(location, new Callback() {          //connect to yelp api to search for milk tea stores in specified location
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {   //if connection is successful...
+                try {
+                    String jsonData = response.body().string();
+
+                    JSONObject jsonObject = new JSONObject(jsonData);
+                    JSONArray jsonResults = jsonObject.getJSONArray("businesses");      //retrieved all milk tea stores based on location (this includes all fields of each business)
+                    teaStores.addAll(TeaStore.fromJsonArray(jsonResults));                    //ArrayList teaStores will then add all tea stores objects from the returned arraylist
+                    runOnUiThread(new Runnable() {                  //now back on main thread
+                        @Override
+                        public void run() {
+                            getData();
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
+    }
+
+
+    private void getData() {
+        String newTextViewResult;
+        for(int i = 0; i < teaStores.size(); i++) {
+            String teaStoreName = teaStores.get(i).getName();
+            String teaStoreLocation = teaStores.get(i).getAddress();
+            String teaStoreRating = teaStores.get(i).getRating();
+            newTextViewResult = teaStoreName + ", " + teaStoreLocation + ", Rating: " + teaStoreRating;
+            mTextViewResult.append(newTextViewResult + "\n\n");
+        }
+        mTextViewResult.append("\n\n Code successfully parsed correct data with no errors and reach getData()");
     }
 }
 
