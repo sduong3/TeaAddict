@@ -1,18 +1,7 @@
 package com.stevenduong.android.teaaddict;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,9 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       getMenuInflater().inflate(R.menu.filter_menu, menu);
+       getMenuInflater().inflate(R.menu.menu_filter, menu);
        MenuItem item = menu.findItem(R.id.spinner);
         Spinner spinner = (Spinner) item.getActionView();
 
@@ -83,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
        spinner.setOnItemSelectedListener(this);
 
        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        startActivity(new Intent(getApplicationContext(), FilterActivity.class));
+        return super.onOptionsItemSelected(item);
     }
 
     private void getTeaStores(double longitude, double latitude) throws IOException {
@@ -167,47 +160,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+        try {
         switch(position) {
             case 0: //Based on current location
-                try {
-                    getTeaStores(longitude, latitude);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                getTeaStores(longitude, latitude);
                 break;
             case 1: //Best Match
-                try {
-                    //sort by review count
-                    getTeaStoresBySorting("San Francisco", "best_match");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //sort by review count
+                getTeaStoresBySorting("San Francisco", "best_match");
                 break;
             case 2: //Distance
-                try {
-                    //sort by review count
-                    getTeaStoresBySorting("San Francisco", "distance");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //sort by review count
+                getTeaStoresBySorting("San Francisco", "distance");
                 break;
             case 3: //Ratings
-                try {
-                    //sort by review count
-                    getTeaStoresBySorting("San Francisco", "rating");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //sort by review count
+                getTeaStoresBySorting("San Francisco", "rating");
                 break;
             case 4: //Review Count
-                try {
-                    //sort by review count
-                    getTeaStoresBySorting("San Francisco", "review_count");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //sort by review count
+                getTeaStoresBySorting("San Francisco", "review_count");
                 break;
-        }
+        }} catch (IOException e) {
+                e.printStackTrace();
+            }
+
         Toast.makeText(parent.getContext(), parent.getItemAtPosition(position).toString() + " Selected",
                 Toast.LENGTH_SHORT).show();
     }

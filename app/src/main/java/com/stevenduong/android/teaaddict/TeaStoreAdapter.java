@@ -10,8 +10,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
@@ -51,7 +49,7 @@ public class TeaStoreAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get view for row item
-        View rowView = mInflater.inflate(R.layout.listview_layout, parent, false);
+        View rowView = mInflater.inflate(R.layout.layout_listview, parent, false);
 
         // Get title element
         TextView nameTextView =

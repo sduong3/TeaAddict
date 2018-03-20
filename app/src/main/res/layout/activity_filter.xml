@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/filter_title"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_title_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_title_location"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_title_location"
+            android:paddingStart="50dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="15dp">
+
+            <RadioButton
+                android:id="@+id/tv_current_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_current_location"/>
+
+            <RadioButton
+                android:id="@+id/tv_custom_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_custom_location"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/et_custom_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title_location"
+            android:layout_toEndOf="@+id/radio_group_location"
+            android:layout_toRightOf="@+id/radio_group_location"
+            android:text="@string/filter_enter_custom_location" />
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_title_search_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_title_search_radius"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_search_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_title_search_radius"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="15dp">
+
+            <RadioButton
+                android:id="@+id/tv_one_mile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_one_mile_search_radius"/>
+
+            <RadioButton
+                android:id="@+id/tv_five_miles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_five_miles_search_radius"/>
+
+            <RadioButton
+                android:id="@+id/tv_ten_miles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_ten_miles_search_radius"/>
+
+            <RadioButton
+                android:id="@+id/tv_twenty_miles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_twenty_miles_search_radius"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_title_sort_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_title_sort_by"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_sort_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_title_sort_by"
+            android:paddingStart="60dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="15dp">
+
+            <RadioButton
+                android:id="@+id/tv_best_match_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_best_match_sort"/>
+
+            <RadioButton
+                android:id="@+id/tv_distance_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_distance_sort"/>
+
+            <RadioButton
+                android:id="@+id/tv_rating_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_rating_sort"/>
+
+            <RadioButton
+                android:id="@+id/tv_review_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_review_sort"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/button_apply_filter"/>
+</LinearLayout>

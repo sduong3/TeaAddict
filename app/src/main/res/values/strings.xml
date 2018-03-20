@@ -5,6 +5,33 @@
     <string name="search_hint">Enter location</string>
     <string name="spinner">Filter Spinner</string>
 
+    <string name="tea_store_name">Name</string>
+    <string name="tea_store_address">Address</string>
+    <string name="tea_store_rating">Rating</string>
+    <string name="tea_store_review">Review</string>
+    <string name="tea_store_distance">Distance</string>
+
+    <string name="filter_title">Filters</string>
+
+    <string name="filter_title_location">Location</string>
+    <string name="filter_current_location">Current</string>
+    <string name="filter_custom_location">Custom</string>
+    <string name="filter_enter_custom_location">Enter custom location</string>
+
+    <string name="filter_title_search_radius">Search Radius</string>
+    <string name="filter_one_mile_search_radius">1 mile</string>
+    <string name="filter_five_miles_search_radius">5 miles</string>
+    <string name="filter_ten_miles_search_radius">10 miles</string>
+    <string name="filter_twenty_miles_search_radius">20 miles</string>
+
+    <string name="filter_title_sort_by">Sort By</string>
+    <string name="filter_best_match_sort">Best Match</string>
+    <string name="filter_distance_sort">Distance</string>
+    <string name="filter_rating_sort">Rating</string>
+    <string name="filter_review_sort">Review</string>
+
+    <string name="button_apply_filter">Apply filters</string>
+
     <string-array name="filter_spinner_array">
         <item>Sort By</item>
         <item>Best Match</item>
