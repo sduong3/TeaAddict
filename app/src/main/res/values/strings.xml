@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">TeaAddict</string>
     <string name="image">Image</string>
+    <string name="action_filter">Filter</string>
+    <string name="search_hint">Enter location</string>
+    <string name="spinner">Filter Spinner</string>
+
+    <string-array name="filter_spinner_array">
+        <item>Sort By</item>
+        <item>Best Match</item>
+        <item>Distance</item>
+        <item>Rating</item>
+        <item>Reviews</item>
+    </string-array>
 </resources>

@@ -5,63 +5,91 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="243dp"
         android:layout_marginBottom="5dp"
         android:background="#ffffff"
+        android:orientation="vertical"
         android:padding="15dp">
 
 
         <ImageView
             android:id="@+id/iv_teaPicture"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:contentDescription="@string/image"
-            android:scaleType="fitXY"
+            android:layout_width="100dp"
+            android:layout_height="145dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:adjustViewBounds="false"
-            />
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tv_teaStoreName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginRight="18dp"
-            android:layout_toEndOf="@+id/iv_teaPicture"
-            android:layout_toRightOf="@+id/iv_teaPicture"
+            android:layout_above="@+id/myRatingBar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Name"
             android:textColor="#333"
             android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="TextView"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_teaStoreName"
-            android:layout_alignStart="@+id/tv_teaStoreName"
-            android:layout_below="@+id/tv_teaStoreName"
-            android:layout_marginBottom="18dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:paddingTop="5dp"
-            android:text="TextView"
+            android:text="Address"
             android:textColor="#333" />
 
         <TextView
-            android:id="@+id/tv_rating"
+            android:id="@+id/tv_reviewCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/myRatingBar"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/myRatingBar"
+            android:layout_toRightOf="@+id/myRatingBar"
+            android:text="Number of Reviews" />
+
+        <TextView
+            android:id="@+id/tv_openNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/tv_teaStoreName"
-            android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
-            android:text="TextView" />
+            android:paddingTop="5dp"
+            android:text="openNow" />
+
+        <RatingBar
+            android:id="@+id/myRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_address"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:isIndicator="false"
+            android:numStars="5" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_reviewCount"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="Distance" />
 
 
     </RelativeLayout>

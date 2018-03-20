@@ -6,8 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -58,8 +62,17 @@ public class TeaStoreAdapter extends BaseAdapter {
                 (TextView) rowView.findViewById(R.id.tv_address);
 
 // Get detail element
-        TextView ratingTextView =
-                (TextView) rowView.findViewById(R.id.tv_rating);
+        TextView reviewCountTextView =
+                (TextView) rowView.findViewById(R.id.tv_reviewCount);
+
+        RatingBar ratingBarView =
+                (RatingBar) rowView.findViewById(R.id.myRatingBar);
+
+        TextView distanceTextView =
+                (TextView) rowView.findViewById(R.id.tv_distance);
+
+        TextView openNowTextView =
+                (TextView) rowView.findViewById(R.id.tv_openNow);
 
 // Get thumbnail element
         ImageView pictureImageView =
@@ -72,7 +85,12 @@ public class TeaStoreAdapter extends BaseAdapter {
 // 2
         nameTextView.setText(teaStore.name);
         addressTextView.setText(teaStore.address);
-        ratingTextView.setText(teaStore.rating);
+        reviewCountTextView.setText(teaStore.reviewCount);
+        float rating = Float.parseFloat(teaStore.rating);
+        ratingBarView.setRating(rating);
+        distanceTextView.setText(String.format("%.2f miles",teaStore.getDistanceInMiles()));
+        openNowTextView.setText(teaStore.id);
+
 
 // 3
         Picasso.with(mContext).load(teaStore.imageUrl).placeholder(R.mipmap.ic_launcher).into(pictureImageView);
