@@ -28,14 +28,14 @@ public class YelpConnect {
     private static String LOCATION_QUERY_PARAMETER = "location";
     private static String LONGITUDE_QUERY_PARAMETER = "longitude";
     private static String LATITUDE_QUERY_PARAMETER = "latitude";
+    private static String RADIUS_QUERY_PARAMETER = "radius";
+    private static String SORT_BY_QUERY_PARAMETER = "sort_by";
 
     private static String TERM = "milk tea";
     private static String LOCATION = "San Jose, CA"; //default location
 
 
-    //current location
-    //both should have the ability to select search radius and sort filters
-    public static void buildYelpUrl(double longitude, double latitude, Callback callback) throws IOException{
+    public static void buildYelpUrlCurrentLocation(double longitude, double latitude, int radius, String sort_by, Callback callback) throws IOException{
         //Create HTTP Connection
         OkHttpClient client = new OkHttpClient.Builder().build();
 
@@ -44,6 +44,9 @@ public class YelpConnect {
         urlBuilder.addQueryParameter(TERM_QUERY_PARAMETER, TERM);
         urlBuilder.addQueryParameter(LONGITUDE_QUERY_PARAMETER, Double.toString(longitude));             //only including location here to test the default location; user should need to pass in a location after though
         urlBuilder.addQueryParameter(LATITUDE_QUERY_PARAMETER, Double.toString(latitude));             //only including location here to test the default location; user should need to pass in a location after though
+        urlBuilder.addQueryParameter(RADIUS_QUERY_PARAMETER, Integer.toString(radius));
+        urlBuilder.addQueryParameter(SORT_BY_QUERY_PARAMETER, sort_by);
+
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()
@@ -55,8 +58,7 @@ public class YelpConnect {
         call.enqueue(callback);
     }
 
-    //user enters specific location
-    public static void buildYelpUrl(String location, String sort_by, Callback callback) throws IOException{
+    public static void buildYelpUrlCustomLocation(String location, int radius, String sort_by, Callback callback) throws IOException{
         //Create HTTP Connection
         OkHttpClient client = new OkHttpClient.Builder().build();
 
@@ -64,7 +66,8 @@ public class YelpConnect {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(YELP_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(TERM_QUERY_PARAMETER, TERM);
         urlBuilder.addQueryParameter(LOCATION_QUERY_PARAMETER, location);             //only including location here to test the default location; user should need to pass in a location after though
-        urlBuilder.addQueryParameter("sort_by", sort_by);
+        urlBuilder.addQueryParameter(RADIUS_QUERY_PARAMETER, Integer.toString(radius));
+        urlBuilder.addQueryParameter(SORT_BY_QUERY_PARAMETER, sort_by);
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()

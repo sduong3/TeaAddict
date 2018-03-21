@@ -24,18 +24,18 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 //Essentially YelpActivity
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity{
 
     ArrayList<TeaStore> teaStores = new ArrayList<>();
     TeaStoreAdapter adapter;
     ListView mListView;
-    TextView mResult;
 
     GPSTracker gps;
     Context mContext;
     double longitude;
     double latitude;
 
+    TextView dummyIntentResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,47 +43,76 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         mContext = this;
-        mResult = (TextView) findViewById(R.id.textViewResult);
+        dummyIntentResult = (TextView) findViewById(R.id.textViewResult);
 
         gps = new GPSTracker(mContext, MainActivity.this);
-        if(gps.canGetLocation()) {
+       /* if(gps.canGetLocation()) {
 
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
         } else {
             gps.showSettingsAlert();
-        }
+        }*/
 
+        Intent intentFromFilter = getIntent();
+        Bundle bundleFromFilter = intentFromFilter.getExtras();
+
+        try {
+            if(bundleFromFilter != null) {
+                String locationFromIntent = (String) bundleFromFilter.get("location");
+                String searchRadiusFromIntent = (String) bundleFromFilter.get("radius");
+                String sortByFromIntent = (String) bundleFromFilter.get("sort_by");
+
+                if(locationFromIntent.equals("current")) {
+                    if(gps.canGetLocation()) {
+                        latitude = gps.getLatitude();
+                        longitude = gps.getLongitude();
+                    } else {
+                        gps.showSettingsAlert();
+                    }
+                    getTeaStoresCurrentLocation(longitude, latitude, Integer.parseInt(searchRadiusFromIntent), sortByFromIntent);
+
+                   // dummyIntentResult.setText("latitude: " + Double.toString(latitude) + "longitude: " + Double.toString(longitude) + ", " + searchRadiusFromIntent + ", " + sortByFromIntent);
+                } else {
+                    getTeaStoresCustomLocation(locationFromIntent, Integer.parseInt(searchRadiusFromIntent), sortByFromIntent);
+                    //dummyIntentResult.setText(locationFromIntent + ", " + searchRadiusFromIntent + ", " + sortByFromIntent);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
+    //might not need spinner anymore. WORK ON FILTER MENU BUTTON
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
        getMenuInflater().inflate(R.menu.menu_filter, menu);
-       MenuItem item = menu.findItem(R.id.spinner);
-        Spinner spinner = (Spinner) item.getActionView();
+      // MenuItem item = menu.findItem(R.id.spinner);
+        //Spinner spinner = (Spinner) item.getActionView();
 
-       ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.filter_spinner_array, android.R.layout.simple_spinner_dropdown_item);
-       spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       spinner.setAdapter(spinnerAdapter);
+      // ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.filter_spinner_array, android.R.layout.simple_spinner_dropdown_item);
+    //   spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      // spinner.setAdapter(spinnerAdapter);
 
-       spinner.setOnItemSelectedListener(this);
+      // spinner.setOnItemSelectedListener(this);
 
        return true;
     }
 
+    //WORK ON THIS ONE
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         startActivity(new Intent(getApplicationContext(), FilterActivity.class));
         return super.onOptionsItemSelected(item);
     }
 
-    private void getTeaStores(double longitude, double latitude) throws IOException {
+    private void getTeaStoresCurrentLocation(double longitude, double latitude, int radius, String sort_by) throws IOException {
         teaStores.clear();          //wipe previous data of listview
 
         final YelpConnect yelpConnect = new YelpConnect();                //creates instance of the class that will be used to connect to yelp api
 
-        yelpConnect.buildYelpUrl(longitude, latitude, new Callback() {          //connect to yelp api to search for milk tea stores in specified location
+        yelpConnect.buildYelpUrlCurrentLocation(longitude, latitude, radius, sort_by, new Callback() {          //connect to yelp api to search for milk tea stores in specified location
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -115,12 +144,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    private void getTeaStoresBySorting(String location, String sort_by) throws IOException {
+    private void getTeaStoresCustomLocation(String location, int radius, String sort_by) throws IOException {
         teaStores.clear();          //wipe previous data of listview
 
         final YelpConnect yelpConnect = new YelpConnect();                //creates instance of the class that will be used to connect to yelp api
 
-        yelpConnect.buildYelpUrl(location, sort_by, new Callback() {          //connect to yelp api to search for milk tea stores in specified location
+        yelpConnect.buildYelpUrlCustomLocation(location, radius, sort_by, new Callback() {          //connect to yelp api to search for milk tea stores in specified location
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -158,28 +187,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    @Override
+    /*@Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         try {
         switch(position) {
             case 0: //Based on current location
-                getTeaStores(longitude, latitude);
+                getTeaStoresCurrentLocation(longitude, latitude, 16093, "best_match");
                 break;
             case 1: //Best Match
                 //sort by review count
-                getTeaStoresBySorting("San Francisco", "best_match");
+                getTeaStoresCustomLocation("San Francisco", 16093, "best_match");
                 break;
             case 2: //Distance
                 //sort by review count
-                getTeaStoresBySorting("San Francisco", "distance");
+                getTeaStoresCustomLocation("San Francisco", 16093, "distance");
                 break;
             case 3: //Ratings
                 //sort by review count
-                getTeaStoresBySorting("San Francisco", "rating");
+                getTeaStoresCustomLocation("San Francisco", 16093, "rating");
                 break;
             case 4: //Review Count
                 //sort by review count
-                getTeaStoresBySorting("San Francisco", "review_count");
+                getTeaStoresCustomLocation("San Francisco", 16093, "review_count");
                 break;
         }} catch (IOException e) {
                 e.printStackTrace();
@@ -192,10 +221,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
-    }
-
-
-
-
-
+    }*/
 }

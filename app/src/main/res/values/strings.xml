@@ -16,7 +16,7 @@
     <string name="filter_title_location">Location</string>
     <string name="filter_current_location">Current</string>
     <string name="filter_custom_location">Custom</string>
-    <string name="filter_enter_custom_location">Enter custom location</string>
+    <string name="filter_enter_custom_location">"                      "</string>
 
     <string name="filter_title_search_radius">Search Radius</string>
     <string name="filter_one_mile_search_radius">1 mile</string>
