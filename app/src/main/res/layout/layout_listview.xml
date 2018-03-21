@@ -91,7 +91,6 @@
             android:layout_alignParentRight="true"
             android:text="@string/tea_store_distance" />
 
-
     </RelativeLayout>
 </LinearLayout>
 

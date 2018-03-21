@@ -3,7 +3,6 @@
     <string name="image">Image</string>
     <string name="action_filter">Filter</string>
     <string name="search_hint">Enter location</string>
-    <string name="spinner">Filter Spinner</string>
 
     <string name="tea_store_name">Name</string>
     <string name="tea_store_address">Address</string>
